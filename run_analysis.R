@@ -84,24 +84,17 @@ loadAndMergeData <- function () {
   subject <- rbind(testSubjects, trainingSubjects)
   names(subject) <- "subjectId"
   
-  # Bind set data and rename column
+  # Bind "set data" and rename column
   X <- rbind(X.testSet, X.trainingSet)
   X <- X [, features.MeanAndStd]
   names(X) <- features.MeanAndStd.names
   
-  # Bind set data and rename column
+  # Bind "activity data" and rename column
   Y <- rbind(Y.testActivities, Y.trainingActivities)
   names(Y) = "activityId"
   activity <- merge(Y, activityLabels, by="activityId")$activityLabel
   
-  # merge data frames of different columns to form one data table
+  # Merge data frames and write data into file "tidy.txt"
   data <- cbind(subject, activity, X)
   write.table(data, "tidy.txt")
-  
-  
-  # create a dataset grouped by subject and activity after applying standard deviation and average calculations
-  data.tbl_df <- tbl_df(data)
-  head(data.tbl_df %>% group_by("subjectId", "activity") %>% mutate(mean = mean(3:ncol(data.tbl_df))))
-  calculatedData<- dataDT[, lapply(.SD, mean), by=c("subjectId", "activity")]
-  write.table(calculatedData, "calculated_tidy_data.txt")
 }
