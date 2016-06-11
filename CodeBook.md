@@ -1,0 +1,81 @@
+# Code Book
+
+## ID Fields
+
+* `subjectId` - The participant ("subject") ID
+* `activity` - The label of the activity performed when the corresponding measurements were taken
+** `WALKING`
+** `WALKING_UPSTAIRS`
+** `WALKING_DOWNSTAIRS`
+** `SITTING`
+** `STANDING`
+** `LAYING`
+
+## Extracted Feature Fields
+
+* `tBodyAccMeanX` (column `1`)
+* `tBodyAccMeanY` (column `2`)
+* `tBodyAccMeanZ` (column `3`)
+* `tBodyAccStdX` (column `4`)
+* `tBodyAccStdY` (column `5`)
+* `tBodyAccStdZ` (column `6`)
+* `tGravityAccMeanX` (column `41`)
+* `tGravityAccMeanY` (column `42`)
+* `tGravityAccMeanZ` (column `43`)
+* `tGravityAccStdX` (column `44`)
+* `tGravityAccStdY` (column `45`)
+* `tGravityAccStdZ` (column `46`)
+* `tBodyAccJerkMeanX` (column `81`)
+* `tBodyAccJerkMeanY` (column `82`)
+* `tBodyAccJerkMeanZ` (column `83`)
+* `tBodyAccJerkStdX` (column `84`)
+* `tBodyAccJerkStdY` (column `85`)
+* `tBodyAccJerkStdZ` (column `86`)
+* `tBodyGyroMeanX` (column `121`)
+* `tBodyGyroMeanY` (column `122`)
+* `tBodyGyroMeanZ` (column `123`)
+* `tBodyGyroStdX` (column `124`)
+* `tBodyGyroStdY` (column `125`)
+* `tBodyGyroStdZ` (column `126`)
+* `tBodyGyroJerkMeanX` (column `161`)
+* `tBodyGyroJerkMeanY` (column `162`)
+* `tBodyGyroJerkMeanZ` (column `163`)
+* `tBodyGyroJerkStdX` (column `164`)
+* `tBodyGyroJerkStdY` (column `165`)
+* `tBodyGyroJerkStdZ` (column `166`)
+* `tBodyAccMagMean` (column `201`)
+* `tBodyAccMagStd` (column `202`)
+* `tGravityAccMagMean` (column `214`)
+* `tGravityAccMagStd` (column `215`)
+* `tBodyAccJerkMagMean` (column `227`)
+* `tBodyAccJerkMagStd` (column `228`)
+* `tBodyGyroMagMean` (column `240`)
+* `tBodyGyroMagStd` (column `241`)
+* `tBodyGyroJerkMagMean` (column `253`)
+* `tBodyGyroJerkMagStd` (column `254`)
+* `fBodyAccMeanX` (column `266`)
+* `fBodyAccMeanY` (column `267`)
+* `fBodyAccMeanZ` (column `268`)
+* `fBodyAccStdX` (column `269`)
+* `fBodyAccStdY` (column `270`)
+* `fBodyAccStdZ` (column `271`)
+* `fBodyAccJerkMeanX` (column `345`)
+* `fBodyAccJerkMeanY` (column `346`)
+* `fBodyAccJerkMeanZ` (column `347`)
+* `fBodyAccJerkStdX` (column `348`)
+* `fBodyAccJerkStdY` (column `349`)
+* `fBodyAccJerkStdZ` (column `350`)
+* `fBodyGyroMeanX` (column `424`)
+* `fBodyGyroMeanY` (column `425`)
+* `fBodyGyroMeanZ` (column `426`)
+* `fBodyGyroStdX` (column `427`)
+* `fBodyGyroStdY` (column `428`)
+* `fBodyGyroStdZ` (column `429`)
+* `fBodyAccMagMean` (column `503`)
+* `fBodyAccMagStd` (column `504`)
+* `fBodyBodyAccJerkMagMean` (column `516`)
+* `fBodyBodyAccJerkMagStd` (column `517`)
+* `fBodyBodyGyroMagMean` (column `529`)
+* `fBodyBodyGyroMagStd` (column `530`)
+* `fBodyBodyGyroJerkMagMean` (column `542`)
+* `fBodyBodyGyroJerkMagStd` (column `543`)
