@@ -1,5 +1,5 @@
 # Code Book
-The source is https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip. For the "tidy data" only mean and standard deviation values as well as labels of actvities and features are taken over.
+The source is https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip. For creating "tidy data", only mean and standard deviation values as well as labels of actvities and features are taken over and merged from the source. Finally, the average of each variable (grouped by activity and subject) is calculted and stored in the file "tidy_data.txt".
 
 # Description
 The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix ‘t’ to denote time) were captured at a constant rate of 50 Hz. and the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) – both using a low pass Butterworth filter.
