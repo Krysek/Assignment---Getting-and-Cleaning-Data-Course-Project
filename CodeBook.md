@@ -1,9 +1,9 @@
 # Code Book
 
-## ID Fields
-
-* `subjectId` - The participant ("subject") ID
-* `activity` - The label of the activity performed when the corresponding measurements were taken. This variable covers 6 different activities:
+## Fields
+### ID Fields
+1. `subjectId` - The participant ("subject") ID
+2. `activity` - The label of the activity performed when the corresponding measurements were taken. This variable covers 6 different activities:
   * `WALKING` (value 1): Subject was walking during the test.
   * `WALKING_UPSTAIRS` (value 2): subject was walking up a staircase during the test.
   * `WALKING_DOWNSTAIRS` (value 3): subject was walking down a staircase during the test.
@@ -11,8 +11,7 @@
   * `STANDING` (value 5): subject was standing during the test.
   * `LAYING` (value 6): subject was laying down during the test.
 
-## Extracted Feature Fields
-
+### Extracted Feature Fields
 3. `tBodyAccMeanX` (from column `1`)
 4. `tBodyAccMeanY` (from column `2`)
 5. `tBodyAccMeanZ` (from column `3`)
