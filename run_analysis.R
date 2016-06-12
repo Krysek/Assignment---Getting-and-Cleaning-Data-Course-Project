@@ -35,9 +35,10 @@ loadAndMergeData <- function () {
   library(reshape2)
   library(dplyr)
   
-  subdirectory <- "./data/"
-  zipfilename <- "UCI HAR Dataset.zip"
-  zipfilepath <- paste0(subdirectory, zipfilename)
+  # init variables about subdirectory, zipfilename and zipfilepath
+  subdirectory              <- "./data/"
+  zipfilename               <- "UCI HAR Dataset.zip"
+  zipfilepath               <- paste0(subdirectory, zipfilename)
   
   # If subdirectory "data" doesn't exists, then create this.
   if (!file.exists("data")) {
@@ -46,55 +47,64 @@ loadAndMergeData <- function () {
   
   # If zip file isn't stored in subdirectory data, it will be downloaded.
   if (!file.exists(zipfilepath)){
-    fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+    fileURL                 <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
     download.file(fileURL, zipfilepath, method="curl")
   }  
   
-  # upzip downloaded zip file
+  # Upzip downloaded zip file
   if (!file.exists("UCI HAR Dataset")) { 
     unzip(zipfilepath, exdir = subdirectory) 
   }
   
   # Load "activity labels" & "features" and convert them into character.
-  activityLabels <- read.table(paste0(subdirectory, "UCI HAR Dataset/activity_labels.txt"), col.names=c("activityId", "activityLabel"))
-  activityLabels[,2] <- as.character(activityLabels[,2])
-  features <- read.table(paste0(subdirectory, "UCI HAR Dataset/features.txt"), col.names=c("featureId", "featureLabel"))
-  features[,2] <- as.character(features[,2])
+  activityLabels            <- read.table(paste0(subdirectory, 
+                                                 "UCI HAR Dataset/activity_labels.txt"), 
+                                                  col.names=c("activityId", "activityLabel"))
+  activityLabels[,2]        <- as.character(activityLabels[,2])
+  features                  <- read.table(paste0(subdirectory, 
+                                                 "UCI HAR Dataset/features.txt"), 
+                                                  col.names=c("featureId", "featureLabel"))
+  features[,2]              <- as.character(features[,2])
   
-  # Extract only the data on mean and standard deviation
-  features.MeanAndStd <- grep(".*mean.*|.*std.*", features[,2])
+  # Extract only the data about mean and standard deviation
+  features.MeanAndStd       <- grep(".*mean.*|.*std.*", features[,2])
   features.MeanAndStd.names <- features[features.MeanAndStd,2]
   
-  # Adjust names into CamelCase notation and without dashs
+  # Adjust labels into CamelCase notation and without dashs
   features.MeanAndStd.names = gsub('-mean', 'Mean', features.MeanAndStd.names)
   features.MeanAndStd.names = gsub('-std', 'Std', features.MeanAndStd.names)
   features.MeanAndStd.names <- gsub('[-()]', '', features.MeanAndStd.names)
   
   # Load test data
-  X.testSet <- read.table(paste0(subdirectory, "UCI HAR Dataset/test/X_test.txt"))
-  Y.testActivities <- read.table(paste0(subdirectory, "UCI HAR Dataset/test/Y_test.txt"))
-  testSubjects <- read.table(paste0(subdirectory, "UCI HAR Dataset/test/subject_test.txt"))
+  set.test                  <- read.table(paste0(subdirectory, "UCI HAR Dataset/test/X_test.txt"))
+  activities.test           <- read.table(paste0(subdirectory, "UCI HAR Dataset/test/Y_test.txt"))
+  subjects.test             <- read.table(paste0(subdirectory, "UCI HAR Dataset/test/subject_test.txt"))
   
-  # Load train data
-  X.trainingSet <- read.table(paste0(subdirectory, "UCI HAR Dataset/train/X_train.txt"))
-  Y.trainingActivities <- read.table(paste0(subdirectory, "UCI HAR Dataset/train/Y_train.txt"))
-  trainingSubjects <- read.table(paste0(subdirectory, "UCI HAR Dataset/train/subject_train.txt"))
+  # Load training data
+  set.training              <- read.table(paste0(subdirectory, "UCI HAR Dataset/train/X_train.txt"))
+  activities.training       <- read.table(paste0(subdirectory, "UCI HAR Dataset/train/Y_train.txt"))
+  subjects.training         <- read.table(paste0(subdirectory, "UCI HAR Dataset/train/subject_train.txt"))
 
-  # Bind subject data and rename column
-  subject <- rbind(testSubjects, trainingSubjects)
-  names(subject) <- "subjectId"
+  # Merge subject data from training and test
+  subject.merged            <- rbind(subjects.test, subjects.training)
+  # Rename subject identifier column in "subjectId"
+  names(subject.merged)     <- "subjectId"
   
-  # Bind "set data" and rename column
-  X <- rbind(X.testSet, X.trainingSet)
-  X <- X [, features.MeanAndStd]
-  names(X) <- features.MeanAndStd.names
+  # Merge "set data" from test and training data and select only mean and standard deviation values
+  set.merged                <- rbind(set.test, set.training)
+  set.merged                <- set.merged [, features.MeanAndStd]
+  # Add column name from selected feature labels 
+  names(set.merged)         <- features.MeanAndStd.names
   
-  # Bind "activity data" and rename column
-  Y <- rbind(Y.testActivities, Y.trainingActivities)
-  names(Y) = "activityId"
-  activity <- merge(Y, activityLabels, by="activityId")$activityLabel
+  # Merge "activity data" from test and training data
+  activities.merged         <- rbind(activities.test, activities.training)
+  # Renameactivity identifier column in "activityId"
+  names(activities.merged)  = "activityId"
+  # Merge activity data and activity labels
+  activities.merged         <- merge(activities.merged, activityLabels, by="activityId")$activityLabel
   
-  # Merge data frames and write data into file "tidy.txt"
-  data <- cbind(subject, activity, X)
-  write.table(data, "tidy.txt")
+  # Merge merged subject data, merged activity data and merged set data
+  data.merged               <- cbind(subject.merged, activities.merged, set.merged)
+  # Write merged data into file "tidy.txt"
+  write.table(data.merged, "tidy.txt")
 }
