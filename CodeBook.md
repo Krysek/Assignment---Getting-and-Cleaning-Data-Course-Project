@@ -4,12 +4,12 @@
 
 * `subjectId` - The participant ("subject") ID
 * `activity` - The label of the activity performed when the corresponding measurements were taken
-** `WALKING`
-** `WALKING_UPSTAIRS`
-** `WALKING_DOWNSTAIRS`
-** `SITTING`
-** `STANDING`
-** `LAYING`
+  * `WALKING`
+  * `WALKING_UPSTAIRS`
+  * `WALKING_DOWNSTAIRS`
+  * `SITTING`
+  * `STANDING`
+  * `LAYING`
 
 ## Extracted Feature Fields
 
