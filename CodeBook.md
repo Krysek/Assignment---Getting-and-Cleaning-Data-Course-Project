@@ -1,29 +1,27 @@
 # Code Book
+The source is https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip. For the "tidy data" only mean and standard deviation values as well as labels of actvities and features are taken over.
 
-This R-code downloads data about "Human Activity Recognition Using Smartphones Data Set" (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones), fetchs only mean and standard deviation values and merge this set of data with activity and feature labels. All labels are correspond to camelcase notation. At the end the result is stored in the file `tidy.txt`.
+# Description
+The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix ‘t’ to denote time) were captured at a constant rate of 50 Hz. and the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) – both using a low pass Butterworth filter.
 
+The body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag).
 
-## Steps in detail
-1. Download data from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip and stores in the subdirectory "./data/".
-2. Unzip downloaded zip file in "./data".
-3. Load "activity labels"
-4. Load "features" and select only labels about mean and standard deviation labels
-5. Adjust lables into CamelCase notation and without dashs
-6. Load test data
-7. Load training data
-8. Merge subject data from training and test
-9. Rename subject identifier column in "subjectId"
-10. Merge "set data" from test and training data and select only mean and standard deviation values
-11. Add column name from selected feature labels
-12. Merge "activity data" from test and training data
-13. Rename activity identifier column in "activityId"
-14. Merge activity data and activity labels
-15. Merge merged subject data, merged activity data and merged set data
-16. Write merged data into file "tidy.txt"
+A Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the ‘f’ to indicate frequency domain signals).
 
+# Description of abbreviations of measurements
+Leading t or f is based on time or frequency measurements.
 
-## Fields
-### ID Fields
+* Body = related to body movement.
+* Gravity = acceleration of gravity
+* Acc = accelerometer measurement
+* Gyro = gyroscopic measurements
+* Jerk = sudden movement acceleration
+* Mag = magnitude of movement
+
+mean and std (=standard deviation) are calculated for each subject for each activity for each mean and SD measurements.
+
+# Fields
+## ID Fields
 1. `subjectId` - The participant ("subject") ID
 2. `activity` - The label of the activity performed when the corresponding measurements were taken. This variable covers 6 different activities:
   * `WALKING` (value 1): Subject was walking during the test.
@@ -33,7 +31,7 @@ This R-code downloads data about "Human Activity Recognition Using Smartphones D
   * `STANDING` (value 5): subject was standing during the test.
   * `LAYING` (value 6): subject was laying down during the test.
 
-### Extracted Feature Fields
+## Extracted Feature Fields
 3. `tBodyAccMeanX` (from column `1`)
 4. `tBodyAccMeanY` (from column `2`)
 5. `tBodyAccMeanZ` (from column `3`)

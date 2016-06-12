@@ -59,7 +59,7 @@ loadAndMergeData <- function () {
   # Load "activity labels" & "features" and convert them into character.
   activityLabels            <- read.table(paste0(subdirectory, 
                                                  "UCI HAR Dataset/activity_labels.txt"), 
-                                                  col.names=c("activityId", "activityLabel"))
+                                                  col.names=c("activityId", "activity"))
   activityLabels[,2]        <- as.character(activityLabels[,2])
   features                  <- read.table(paste0(subdirectory, 
                                                  "UCI HAR Dataset/features.txt"), 
@@ -85,7 +85,7 @@ loadAndMergeData <- function () {
   activities.training       <- read.table(paste0(subdirectory, "UCI HAR Dataset/train/Y_train.txt"))
   subjects.training         <- read.table(paste0(subdirectory, "UCI HAR Dataset/train/subject_train.txt"))
 
-  # Merge subject data from training and test
+  # Merge "subject data" from training and test
   subject.merged            <- rbind(subjects.test, subjects.training)
   # Rename subject identifier column in "subjectId"
   names(subject.merged)     <- "subjectId"
@@ -93,18 +93,26 @@ loadAndMergeData <- function () {
   # Merge "set data" from test and training data and select only mean and standard deviation values
   set.merged                <- rbind(set.test, set.training)
   set.merged                <- set.merged [, features.MeanAndStd]
-  # Add column name from selected feature labels 
+  # Rename column name from selected feature labels
   names(set.merged)         <- features.MeanAndStd.names
   
   # Merge "activity data" from test and training data
   activities.merged         <- rbind(activities.test, activities.training)
-  # Renameactivity identifier column in "activityId"
+  # Rename activity identifier column in "activityId"
   names(activities.merged)  = "activityId"
   # Merge activity data and activity labels
-  activities.merged         <- merge(activities.merged, activityLabels, by="activityId")$activityLabel
+  activities.merged         <- merge(activities.merged, 
+                                     activityLabels, 
+                                     all.x = TRUE,
+                                     by="activityId")
   
   # Merge merged subject data, merged activity data and merged set data
-  data.merged               <- cbind(subject.merged, activities.merged, set.merged)
-  # Write merged data into file "tidy.txt"
-  write.table(data.merged, "tidy.txt")
+  data.merged               <- cbind(subject.merged, activity = activities.merged$activity, set.merged)
+  # Write merged data into the file "tidy_data.txt"
+  write.table(data.merged, "merged_data.txt")
+  
+  # Calculte the average of each variable grouped by activity and subject.
+  data.merged <- tbl_df(data.merged)
+  data.tidy <- data.merged %>% group_by(subjectId, activity) %>% summarise_each(funs(mean))
+  write.table(data.tidy, "tidy_data.txt")
 }
