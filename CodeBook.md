@@ -1,5 +1,27 @@
 # Code Book
 
+This R-code downloads data about "Human Activity Recognition Using Smartphones Data Set" (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones), fetchs only mean and standard deviation values and merge this set of data with activity and feature labels. All labels are correspond to camelcase notation. At the end the result is stored in the file `tidy.txt`.
+
+
+## Steps in detail
+1. Download data from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip and stores in the subdirectory "./data/".
+2. Unzip downloaded zip file in "./data".
+3. Load "activity labels"
+4. Load "features" and select only labels about mean and standard deviation labels
+5. Adjust lables into CamelCase notation and without dashs
+6. Load test data
+7. Load training data
+8. Merge subject data from training and test
+9. Rename subject identifier column in "subjectId"
+10. Merge "set data" from test and training data and select only mean and standard deviation values
+11. Add column name from selected feature labels
+12. Merge "activity data" from test and training data
+13. Rename activity identifier column in "activityId"
+14. Merge activity data and activity labels
+15. Merge merged subject data, merged activity data and merged set data
+16. Write merged data into file "tidy.txt"
+
+
 ## Fields
 ### ID Fields
 1. `subjectId` - The participant ("subject") ID
